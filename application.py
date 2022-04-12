@@ -4,12 +4,13 @@ from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 from chatterbot.trainers import ListTrainer
 
-app = Flask(__name__)
+application = Flask(__name__)
+app = application
 
 with open('file.txt','r') as file:
     conversation = file.read()
 
-bott = ChatBot("Sunanda's Resume ChatBot")
+bott = ChatBot("Moovbot")
 trainer2 = ListTrainer(bott)
 trainer2.train([    "Hey",
     "Hi there!",
@@ -34,11 +35,11 @@ trainer = ChatterBotCorpusTrainer(bott)
 trainer.train("chatterbot.corpus.english")
 #trainer2.train(["Thank You","Welcome"])
 
-@app.route("/")
+@application.route("/")
 def home(): 
 	return render_template("home.html")
 
-@app.route("/get")
+@application.route("/get")
 def get_bot_response():
 	userText = request.args.get('msg')
 	return str(bott.get_response(userText))
